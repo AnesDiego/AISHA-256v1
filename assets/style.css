@@ -1,13 +1,13 @@
 :root {
-  --background-main: #181A20;    /* quase preto */
-  --surface: #23262b;            /* bloco central */
-  --surface-hover: #292d33;
-  --border: #502980;             /* roxo escuro */
-  --text-main: #d3d9e3;
+  --background-main: #2e2222;
+  --surface: #2d333b;
+  --surface-hover: #373e47;
+  --border: #444c56;
+  --text-main: #adbac7;
   --text-muted: #909dab;
-  --accent: #b17cf5;             /* purple */
-  --accent-hover: #d3aaff;
-  --menu-bg: #181A20;
+  --accent: #a259e6; /* Purple */
+  --accent-hover: #c084fc;
+  --menu-bg: #0d0d0e;
 }
 
 * {
