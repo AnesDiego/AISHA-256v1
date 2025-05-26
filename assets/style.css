@@ -395,9 +395,11 @@ footer {
     box-sizing: border-box;
     margin: 0.7em 0;
   }
+  /* ERRO: Remover esta linha para corrigir o bug do overlay!
   .menu-mobile-overlay {
     display: flex !important;
   }
+  */
 }
 
 @media (max-width: 500px) {
