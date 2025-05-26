@@ -1,9 +1,35 @@
-// --- Member counter widget (fake for now, easy to extend) ---
+// Hamburger menu toggle
+document.addEventListener("DOMContentLoaded", function() {
+  const hamburger = document.querySelector('.hamburger');
+  const overlay = document.querySelector('.menu-mobile-overlay');
+  const body = document.body;
+
+  if(hamburger && overlay) {
+    hamburger.addEventListener('click', function() {
+      overlay.style.display = 'flex';
+      body.classList.add('menu-open');
+    });
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+        body.classList.remove('menu-open');
+      }
+    });
+    document.querySelectorAll('.menu-mobile-overlay .menu-list a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        body.classList.remove('menu-open');
+      });
+    });
+  }
+});
+
+// Member counter widget (fake for now)
 const countKey = "aisha256MemberCount";
 function getMemberCount() {
   let count = localStorage.getItem(countKey);
   if (!count) {
-    count = Math.floor(850 + Math.random() * 4000); // Start with a random base
+    count = Math.floor(850 + Math.random() * 4000);
     localStorage.setItem(countKey, count);
   }
   return count;
@@ -14,14 +40,14 @@ function updateMemberCount() {
 }
 updateMemberCount();
 
-// --- BTC Address copy ---
+// BTC Address copy
 function copyBTCAddress() {
   const btc = document.querySelector('.btc-address-box code').textContent;
   navigator.clipboard.writeText(btc);
   alert('BTC address copied!');
 }
 
-// --- Suggestion form handling (Formspree) ---
+// Suggestion form handling (Formspree)
 const suggestForm = document.getElementById('suggestForm');
 if (suggestForm) {
   suggestForm.onsubmit = async function(e) {
@@ -49,18 +75,3 @@ if (suggestForm) {
     }
   }
 }
-
-// --- Avatar Zoom and Pan ---
-window.addEventListener('DOMContentLoaded', () => {
-  const avatar = document.getElementById('avatarImg');
-  if (avatar && window.Panzoom) {
-    const panzoom = Panzoom(avatar, {
-      maxScale: 8,
-      minScale: 1,
-      contain: 'outside',
-      panOnlyWhenZoomed: true
-    });
-    avatar.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
-    avatar.style.cursor = "zoom-in";
-  }
-});
