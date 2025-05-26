@@ -110,14 +110,21 @@ nav {
 }
 
 .menu-mobile-overlay .menu-list {
+  display: flex !important;
   flex-direction: column;
   gap: 1em;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
-
+.menu-mobile-overlay .menu-list li {
+  width: 100%;
+}
 .menu-mobile-overlay .menu-list li a {
   font-size: 1.25em;
   padding: 0.7em 1.2em;
+  width: 100%;
+  display: block;
 }
 
 body.menu-open {
@@ -395,11 +402,6 @@ footer {
     box-sizing: border-box;
     margin: 0.7em 0;
   }
-  /* ERRO: Remover esta linha para corrigir o bug do overlay!
-  .menu-mobile-overlay {
-    display: flex !important;
-  }
-  */
 }
 
 @media (max-width: 500px) {
@@ -412,4 +414,23 @@ footer {
   main {
     padding: 0.3em 0.1em 1.2em 0.1em;
   }
+}
+
+/* CORREÇÃO FUNDAMENTAL PARA O MENU MOBILE (sempre deixe no fim do CSS) */
+.menu-mobile-overlay .menu-list {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.menu-mobile-overlay .menu-list li {
+  width: 100%;
+}
+.menu-mobile-overlay .menu-list li a {
+  font-size: 1.25em;
+  padding: 0.7em 1.2em;
+  width: 100%;
+  display: block;
 }
