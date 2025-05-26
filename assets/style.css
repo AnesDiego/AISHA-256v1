@@ -165,7 +165,6 @@ main {
   border-radius: 18px;
   object-fit: cover;
   background: #23262b;
-  cursor: zoom-in;
   display: block;
 }
 
@@ -343,13 +342,13 @@ footer {
 }
 
 .footer-social-row a {
-  color: var(--accent);
+  color: var(--accent) !important;
   font-size: 2em;
   text-decoration: none;
   transition: color 0.15s;
 }
 .footer-social-row a:hover {
-  color: var(--accent-hover);
+  color: var(--accent-hover) !important;
 }
 
 @media (max-width: 1000px) {
