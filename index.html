@@ -8,29 +8,32 @@
 </head>
 <body>
   <nav>
-    <ul>
-      <li><a href="index.html" class="active">About</a></li>
-      <li><a href="roadmap.html">Roadmap</a></li>
-      <li><a href="donate.html">Donate</a></li>
-      <li><a href="disclaimer.html">Disclaimer</a></li>
-      <li><a href="suggest.html">Suggest</a></li>
-    </ul>
-    <div class="social-links">
-      <a href="https://twitter.com/aisha256" target="_blank">Twitter</a>
-      <a href="https://instagram.com/aisha256" target="_blank">Instagram</a>
-      <a href="mailto:talk2me@aisha-256.space">Email</a>
+    <div class="nav-content">
+      <ul>
+        <li><a href="index.html" class="active">About</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="donate.html">Donate</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+        <li><a href="suggest.html">Suggest</a></li>
+      </ul>
+      <div class="social-links">
+        <a href="https://twitter.com/aisha256" target="_blank" title="Twitter">Twitter</a>
+        <a href="https://instagram.com/aisha256" target="_blank" title="Instagram">Instagram</a>
+        <a href="mailto:talk2me@aisha-256.space" title="Email">Email</a>
+      </div>
     </div>
   </nav>
   <main>
     <section class="about">
       <div class="avatar-container">
-        <img src="assets/aisha.png" alt="AISHA-256 Official Avatar" class="avatar"/>
+        <img src="assets/aisha.png" alt="AISHA-256 Official Avatar" class="avatar" id="avatarImg"/>
+        <div style="margin-top:0.9em; color:var(--accent); font-weight:600; font-size:1.09em;">Click & Drag or Pinch to Zoom</div>
       </div>
       <div class="about-text">
         <h1>Welcome to the Universe of AISHA-256</h1>
         <p>
-          <strong>AISHA-256</strong> is your virtual AI-powered Bitcoin analyst, community builder, and digital persona. 
-          With a touch of cyberpunk flair and friendly guidance, she delivers market insights, fosters engagement, and leads the next wave of crypto culture.
+          <strong>AISHA-256</strong> is your virtual AI-powered Bitcoin analyst, community builder, and digital persona.<br>
+          With a unique touch of cyberpunk flair and friendly guidance, she delivers market insights, fosters engagement, and leads the next wave of crypto culture.
         </p>
         <h2>Persona Style</h2>
         <ul>
@@ -40,15 +43,13 @@
         </ul>
         <h2>Project Mission</h2>
         <p>
-          Our journey starts with simple, automated Bitcoin analyses, building a strong community and experimenting with a 2D avatar. 
+          Our journey starts with simple, automated Bitcoin analyses, building a strong community and experimenting with a 2D avatar.<br>
           Step by step, we'll introduce advanced AI-driven interactions, 3D avatars, videos, NFTs, exclusive items, and more—guided by your ideas and feedback.
         </p>
       </div>
     </section>
     <section class="widgets">
-      <div class="member-counter">
-        <span id="memberCount">Community Members: ...</span>
-      </div>
+      <div class="member-counter" id="memberCount"></div>
     </section>
   </main>
   <footer>
@@ -58,6 +59,7 @@
       <a href="https://github.com/aisha-256" target="_blank">GitHub</a>
     </div>
   </footer>
+  <script src="assets/panzoom.min.js"></script>
   <script src="assets/scripts.js"></script>
 </body>
 </html>
