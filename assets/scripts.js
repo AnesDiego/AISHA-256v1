@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
       body.classList.add('menu-open');
     });
     overlay.addEventListener('click', function(e) {
+      // Only close if click is outside the menu-list
       if (e.target === overlay) {
         overlay.style.display = 'none';
         body.classList.remove('menu-open');
