@@ -1,0 +1,87 @@
+/* GitHub dark dimmed inspired theme */
+body {
+  background: #22272e;
+  color: #adbac7;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  background: #2d333b;
+  padding: 0.5em 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+nav ul li a {
+  color: #adbac7;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.25em 0.75em;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+nav ul li a.active, nav ul li a:hover {
+  background: #444c56;
+}
+.social-links a {
+  color: #539bf5;
+  margin-left: 1em;
+  font-size: 1em;
+}
+main {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 1.5em;
+  background: #2d333b;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #1117;
+}
+.about { display: flex; flex-wrap: wrap; gap: 2em; align-items: center; }
+.avatar-container { flex-shrink: 0; }
+.avatar { width: 220px; border-radius: 1.5em; box-shadow: 0 4px 24px #1117; }
+.about-text { flex: 1; min-width: 250px; }
+.roadmap ol { margin-left: 1.5em; }
+.btc-address-box {
+  margin: 2em 0;
+  padding: 1.2em;
+  background: #22272e;
+  border: 1px solid #444c56;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.btc-address-box code { font-size: 1.1em; }
+.btc-address-box button {
+  background: #539bf5; color: #fff;
+  border: none; padding: 0.5em 1em;
+  border-radius: 8px; cursor: pointer;
+}
+.suggest form { display: flex; flex-direction: column; gap: 1em; max-width: 400px; }
+.suggest textarea { min-height: 100px; }
+.widgets { margin-top: 2em; }
+.member-counter { font-size: 1.2em; font-weight: 700; background: #22272e; padding: 0.8em 1em; border-radius: 8px; }
+footer {
+  text-align: center;
+  background: #22272e;
+  color: #768390;
+  padding: 2em 0 1em 0;
+  font-size: 0.95em;
+  margin-top: 4em;
+}
+@media (max-width: 700px) {
+  main { padding: 0.7em; }
+  .about { flex-direction: column; align-items: flex-start; }
+  .avatar-container { margin-bottom: 1.5em; }
+  nav { flex-direction: column; align-items: flex-start; padding: 0.5em 1em; }
+  nav ul { gap: 0.5em; }
+  .member-counter { font-size: 1em; }
+}
