@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to include external HTML files
     function includeHTML(selector, filePath) {
         fetch(filePath)
-            .then(response => {
+           .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.text();
             })
-            .then(data => {
+           .then(data => {
                 const element = document.querySelector(selector);
                 if (element) {
                     element.innerHTML = data;
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.warn(`Element with selector "${selector}" not found.`);
                 }
             })
-            .catch(error => console.error('Error loading HTML:', filePath, error));
+           .catch(error => console.error('Error loading HTML:', filePath, error));
     }
 
     // Include header and footer
@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const navLinks = document.querySelectorAll('.nav-link'); // Select all nav links
         navLinks.forEach(link => {
             const linkPath = link.getAttribute('href').split('/').pop();
-            if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
+            if (currentPath === linkPath |
+| (currentPath === '' && linkPath === 'index.html')) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -76,20 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Roadmap Data (only if on roadmap.html)
     if (document.getElementById('roadmapChart')) {
-        const roadmapPhases = [
-            {
-                id: "phase1",
-                title: "Phase 1: Beta & Essential Foundation",
-                objective: "Establish the fundamental AI analysis system, implement initial avatar presence, and begin cultivating the core community.",
-                deliverables: [
-                    "Automated 1-hour Bitcoin Analysis (Freqtrade, AI).",
-                    "2D Ultra-realistic Female Avatar (AISHA-256v1) on Instagram.",
-                    "Automated Content Publishing System (hourly API).",
-                    "Initial Community Building and Feedback Channels.",
-                    "Comprehensive Disclaimer Implementation.",
-                    "Emphasis on DYOR and Risk.",
-                    "Beta Status Transparency."
-                ],
+        const roadmapPhases =,
                 technologies: "Freqtrade, LLM for textual analysis, 2D Avatar Generation.",
                 platforms: "Instagram.",
                 engagement: "Initial feedback collection on analyses and project; Beta status transparency."
@@ -98,12 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: "phase2",
                 title: "Phase 2: Visual & Content Expansion",
                 objective: "Significantly enhance avatar realism and expand the range of content formats and analytical depth.",
-                deliverables: [
-                    "3D Ultra-realistic Avatar (AISHA-256vX).",
-                    "Dynamic Video Content Production (anchor/influencer).",
-                    "Multi-timeframe Analysis Expansion (4h, daily).",
-                    "Content Diversification for Engagement."
-                ],
+                deliverables:,
                 technologies: "3D Avatar Generation, AI Character Animation, AI Voice Synthesis, AI Lip-sync.",
                 platforms: "Instagram, YouTube (initial), TikTok (initial).",
                 engagement: "Feedback on avatar realism and video formats; Content routine building."
@@ -112,11 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: "phase3",
                 title: "Phase 3: Interactive Immersion & Universe Expansion",
                 objective: "Significantly deepen user engagement through direct, personalized interaction and strategically expand the AI persona universe.",
-                deliverables: [
-                    "AI Chat with Avatars (distinct personalities).",
-                    "New Specialized AI Avatars (programmer, chef, etc.).",
-                    "Automated Comment Interaction."
-                ],
+                deliverables:,
                 technologies: "AI Chatbot, NLP for interaction, AI Character Creation.",
                 platforms: "Instagram, Twitter, YouTube, TikTok.",
                 engagement: "Direct interaction with avatars; Ideas for new avatars and niches; Co-creation of personalities."
@@ -125,10 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: "phase4",
                 title: "Phase 4: Ecosystem & Monetization",
                 objective: "Introduce strategic monetization streams and exclusive digital assets, leveraging established community and brand loyalty.",
-                deliverables: [
-                    "NFT Launch (collectibles, utility).",
-                    "Personalized Merchandise Line (physical/digital)."
-                ],
+                deliverables:,
                 technologies: "Blockchain (NFTs), E-commerce Platforms, Product Design.",
                 platforms: "NFT Platforms, Online Store.",
                 engagement: "Community involvement in exclusive launches; Financial support via donations/purchases."
@@ -152,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let roadmapChartInstance = null; // To store the chart instance
 
         function displayPhaseDetails(phaseIndex) {
-            if (phaseIndex < 0 || phaseIndex >= roadmapPhases.length) {
+            if (phaseIndex < 0 |
+| phaseIndex >= roadmapPhases.length) {
                 phaseDetailsContainer.innerHTML = '<p class="text-center text-text-secondary">Select a phase from the chart or titles to see details.</p>';
                 return;
             }
@@ -167,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                     <p class="mb-2 text-sm"><strong class="font-semibold text-text-secondary">Technologies/Resources:</strong> ${phase.technologies}</p>
                     <p class="mb-2 text-sm"><strong class="font-semibold text-text-secondary">Target Platforms:</strong> ${phase.platforms}</p>
-                    <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engagement}</p>
+                    <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engajamento}</p>
                 </div>
             `;
             // Trigger animation
@@ -185,17 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const ctxRoadmap = document.getElementById('roadmapChart');
         if (ctxRoadmap) {
             const data = {
-                labels: roadmapPhases.map(p => p.title.split(':')[0]), // "Phase 1", "Phase 2", etc.
-                datasets: [{
-                    label: 'Number of Key Deliverables',
-                    data: roadmapPhases.map(p => p.deliverables.length),
-                    backgroundColor: [
-                        'rgba(139, 92, 246, 0.7)', // purple-500
-                        'rgba(124, 58, 237, 0.7)', // purple-600
-                        'rgba(109, 40, 217, 0.7)', // purple-700
-                        'rgba(93, 23, 191, 0.7)',  // purple-800
-                        'rgba(76, 29, 149, 0.7)'   // purple-900
-                    ],
+                labels: roadmapPhases.map(p => p.title.split(':')), // "Phase 1", "Phase 2", etc.
+                datasets:,
                     borderColor: [
                         'rgba(139, 92, 246, 1)',
                         'rgba(124, 58, 237, 1)',
@@ -247,11 +215,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    let label = context.dataset.label || '';
+                                    let label = context.dataset.label |
+| '';
                                     if (label) {
                                         label += ': ';
                                     }
-                                    if (context.parsed.x !== null) {
+                                    if (context.parsed.x!== null) {
                                         label += context.parsed.x;
                                     }
                                     return label;
@@ -261,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
-                            const phaseIndex = elements[0].index;
+                            const phaseIndex = elements.index;
                             displayPhaseDetails(phaseIndex);
                             // Optionally, scroll to the details container on mobile
                             if (window.innerWidth < 1024) { // lg breakpoint

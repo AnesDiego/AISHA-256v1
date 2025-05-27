@@ -90,7 +90,7 @@ header {
     width: 100%;
     background-color: var(--color-bg-card);
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0 / 0.1);
     max-width: 600px; /* Max width for charts */
     margin-left: auto;
     margin-right: auto;
@@ -98,12 +98,12 @@ header {
     max-height: 400px; /* Max height */
 }
 @media (min-width: 768px) {
-    .chart-container {
+   .chart-container {
         height: 350px;
     }
 }
 @media (min-width: 1024px) {
-    .chart-container {
+   .chart-container {
         height: 400px;
     }
 }
@@ -217,29 +217,25 @@ header {
     color: var(--color-accent-red);
 }
 
-/* Octagonal Image Styling */
-.octagonal-container {
+/* Circular Profile Image Styling */
+.circular-profile-container {
     width: 200px; /* Adjust size as needed */
-    height: 200px; /* For a perfect octagon from a square */
+    height: 200px;
     margin: 0 auto 2rem auto; /* Center and add bottom margin */
-    position: relative;
-    /* This clip-path creates an octagon with flat sides at top/bottom/left/right */
-    clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
-    background-color: var(--color-bg-card); /* Background for padding/border effect */
-    display: flex;
+    border-radius: 50%; /* Makes it circular */
+    overflow: hidden; /* Clips the image to the circle */
+    border: 2px solid var(--color-accent-purple); /* Purple border */
+    display: flex; /* For centering image inside */
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Ensure image stays within clip-path */
-    border: 2px solid var(--color-accent-purple); /* Purple border */
+    background-color: var(--color-bg-card); /* Background if image doesn't fill */
 }
 
-.octagonal-container img {
+.circular-profile-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the octagonal area */
+    object-fit: cover; /* Ensures the image covers the circular area */
     display: block;
-    /* Apply clip-path to image too for safety, though container should handle it */
-    clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
 }
 
 /* Suggest Page Specific Styling */
