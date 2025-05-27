@@ -216,3 +216,58 @@ header {
 .disclaimer-card strong {
     color: var(--color-accent-red);
 }
+
+/* Hexagonal Image Styling */
+.hexagon-container {
+    width: 200px; /* Adjust size as needed */
+    height: 230px; /* Approx width * sqrt(3)/2 * 1.15 for slight vertical stretch */
+    margin: 0 auto 2rem auto; /* Center and add bottom margin */
+    position: relative;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background-color: var(--color-bg-card); /* Background for padding/border effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure image stays within clip-path */
+    border: 2px solid var(--color-accent-purple); /* Purple border */
+}
+
+.hexagon-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the hexagon area */
+    display: block;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* Apply clip-path to image too for safety */
+}
+
+/* Suggest Page Specific Styling */
+.warning-message {
+    color: var(--color-accent-red);
+    font-weight: bold;
+    background-color: var(--color-accent-red-light);
+    padding: 15px;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid var(--color-accent-red);
+    border-radius: 5px;
+    max-width: 600px;
+    display: block;
+}
+.warning-message a {
+    color: var(--color-accent-red);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#suggestForm input:disabled,
+#suggestForm textarea:disabled,
+#suggestForm button:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border-secondary);
+}
+
+#suggestForm button:disabled {
+    opacity: 0.7;
+}

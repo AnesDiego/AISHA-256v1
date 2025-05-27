@@ -58,15 +58,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Highlight active navigation link based on current page
-    const currentPath = window.location.pathname.split('/').pop(); // e.g., "index.html", "about.html"
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const linkPath = link.getAttribute('href').split('/').pop();
-        if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
-            link.classList.add('active');
+    // This needs to be done after the header is loaded
+    const currentPath = window.location.pathname.split('/').pop();
+    const navLinksObserver = new MutationObserver((mutationsList, observer) => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        if (navLinks.length > 0) {
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active'); // Ensure other links are not active
+                }
+            });
+            observer.disconnect(); // Disconnect once links are processed
         }
     });
+    navLinksObserver.observe(document.body, { childList: true, subtree: true });
 
-    // Specific function for roadmap chart (only if on roadmap.html)
+
+    // Roadmap Data (only if on roadmap.html)
     if (document.getElementById('roadmapChart')) {
         const roadmapPhases = [
             {
@@ -123,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ],
                 technologies: "Blockchain (NFTs), E-commerce Platforms, Product Design.",
                 platforms: "NFT Platforms, Online Store.",
-                engagement: "Community involvement in exclusive launches; Financial support via donations/purchases."
+                engagement: "Community involvement in exclusive launches; Financial support via donations/compras."
             },
             {
                 id: "phase5",
@@ -141,11 +152,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         const phaseDetailsContainer = document.getElementById('phaseDetailsContainer');
-        let roadmapChartInstance = null;
+        let roadmapChartInstance = null; // To store the chart instance
 
         function displayPhaseDetails(phaseIndex) {
             if (phaseIndex < 0 || phaseIndex >= roadmapPhases.length) {
-                phaseDetailsContainer.innerHTML = '<p class="text-center text-slate-500">Select a phase from the chart or titles to see details.</p>';
+                phaseDetailsContainer.innerHTML = '<p class="text-center text-text-secondary">Select a phase from the chart or titles to see details.</p>';
                 return;
             }
             const phase = roadmapPhases[phaseIndex];
@@ -162,18 +173,33 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engagement}</p>
                 </div>
             `;
+            // Trigger animation
             setTimeout(() => {
                 const card = phaseDetailsContainer.querySelector('.phase-details-card');
                 if (card) card.classList.add('visible');
             }, 50);
+
+            // Update active phase buttons (if any, not directly used in this roadmap chart design)
+            // document.querySelectorAll('.phase-button').forEach((btn, idx) => {
+            //     if (idx === phaseIndex) {
+            //         btn.classList.add('bg-purple-700', 'text-white');
+            //         btn.classList.remove('bg-purple-500', 'hover:bg-purple-600');
+            //     } else {
+            //         btn.classList.remove('bg-purple-700', 'text-white');
+            //         btn.classList.add('bg-purple-500', 'hover:bg-purple-600');
+            //     }
+            // });
         }
         
+        // Initial display (e.g., first phase or placeholder)
         displayPhaseDetails(0);
 
+
+        // Chart.js Roadmap Chart
         const ctxRoadmap = document.getElementById('roadmapChart');
         if (ctxRoadmap) {
             const data = {
-                labels: roadmapPhases.map(p => p.title.split(':')[0]),
+                labels: roadmapPhases.map(p => p.title.split(':')[0]), // "Phase 1", "Phase 2", etc.
                 datasets: [{
                     label: 'Number of Key Deliverables',
                     data: roadmapPhases.map(p => p.deliverables.length),
@@ -203,10 +229,10 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             roadmapChartInstance = new Chart(ctxRoadmap, {
-                type: 'bar',
+                type: 'bar', // Changed to bar for better label readability with more text
                 data: data,
                 options: {
-                    indexAxis: 'y',
+                    indexAxis: 'y', // Makes it a horizontal bar chart
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
@@ -223,14 +249,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         y: {
                            ticks: { 
                                 color: 'var(--color-text-secondary)',
-                                font: { size: 10 }
+                                font: { size: 10 } // Smaller font for phase labels if needed
                             },
                            grid: { display: false }
                         }
                     },
                     plugins: {
                         legend: {
-                            display: false
+                            display: false // Hiding legend as it's self-explanatory
                         },
                         tooltip: {
                             callbacks: {
@@ -251,7 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (elements.length > 0) {
                             const phaseIndex = elements[0].index;
                             displayPhaseDetails(phaseIndex);
-                            if (window.innerWidth < 1024) {
+                            // Optionally, scroll to the details container on mobile
+                            if (window.innerWidth < 1024) { // lg breakpoint
                                 phaseDetailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
                         }
@@ -265,9 +292,10 @@ document.addEventListener('DOMContentLoaded', function() {
             window.copyBtcAddress = function(address) { // Make it global for onclick
                 const feedbackDiv = document.getElementById('copyFeedback');
                 if (!navigator.clipboard) {
+                    // Fallback for older browsers
                     const textArea = document.createElement("textarea");
                     textArea.value = address;
-                    textArea.style.position = "fixed";
+                    textArea.style.position = "fixed"; //avoid scrolling to bottom
                     document.body.appendChild(textArea);
                     textArea.focus();
                     textArea.select();
@@ -278,7 +306,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         feedbackDiv.textContent = 'Failed to copy.';
                         console.error('Fallback: Oops, unable to copy', err);
                     }
-                    document.body.removeChild(textArea);
                 } else {
                     navigator.clipboard.writeText(address).then(function() {
                         feedbackDiv.textContent = 'Address copied!';
