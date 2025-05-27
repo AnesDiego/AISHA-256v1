@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +12,20 @@
   <main>
     <section class="suggest">
       <h1>Suggest Something!</h1>
-      <p>Have an idea? Want to see a new feature, persona, or platform? Share your thoughts and help shape the AISHA-256 universe.</p>
+      <p>Your voice is essential for AISHA-256's evolution! We want to hear your ideas and feedback. Use this space to tell us what you think about:</p>
+      <ul>
+        <li>The accuracy and clarity of AI analyses.</li>
+        <li>The avatar's persona, interaction, and realism.</li>
+        <li>Suggestions for new features, content formats, or analytical tools.</li>
+      </ul>
+      <p>Your contribution helps us fix bugs and constantly improve the project.</p>
       <form id="suggestForm">
         <label for="name">Name (optional):</label>
         <input type="text" id="name" name="name" placeholder="Your name">
+
+        <label for="title">Title of Suggestion:</label>
+        <input type="text" id="title" name="title" required placeholder="A brief title for your suggestion">
+
         <label for="suggestion">Your Suggestion:</label>
         <textarea id="suggestion" name="suggestion" required placeholder="Type your suggestion here..."></textarea>
         <button type="submit">Send Suggestion</button>
