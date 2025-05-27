@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to include external HTML files
     function includeHTML(selector, filePath) {
         fetch(filePath)
-           .then(response => {
+            .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.text();
             })
-           .then(data => {
+            .then(data => {
                 const element = document.querySelector(selector);
                 if (element) {
                     element.innerHTML = data;
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.warn(`Element with selector "${selector}" not found.`);
                 }
             })
-           .catch(error => console.error('Error loading HTML:', filePath, error));
+            .catch(error => console.error('Error loading HTML:', filePath, error));
     }
 
     // Include header and footer
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // Mobile menu toggle logic
+    // Mobile menu toggle logic (needs to be run after header is loaded)
+    // Using a MutationObserver to ensure the button exists before attaching event listener
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
-        // Use MutationObserver to ensure the header content is loaded before attaching listeners
-        const observer = new MutationObserver((mutationsList) => {
+        const observer = new MutationObserver((mutationsList, observer) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -42,42 +42,57 @@ document.addEventListener('DOMContentLoaded', function() {
                         mobileMenuButton.addEventListener('click', () => {
                             mobileMenu.classList.toggle('hidden');
                         });
-                        // Close mobile menu when a link inside it is clicked
+                        // Attach click listeners to mobile menu links to close menu
                         mobileMenu.querySelectorAll('a').forEach(link => {
                             link.addEventListener('click', () => {
                                 mobileMenu.classList.add('hidden');
                             });
                         });
-                        observer.disconnect(); // Disconnect once listeners are attached
-                        // Now that header is loaded, apply active link highlighting
-                        highlightActiveNavLink();
-                        break; // Stop observing after successful setup
+                        observer.disconnect(); // Disconnect once the button is found and listener attached
+                        break;
                     }
                 }
             }
         });
-        // Start observing the header placeholder for changes in its children
         observer.observe(headerPlaceholder, { childList: true, subtree: true });
     }
 
-    // Function for active nav link highlighting
-    function highlightActiveNavLink() {
-        const currentPath = window.location.pathname.split('/').pop();
-        const navLinks = document.querySelectorAll('.nav-link'); // Select all nav links
-        navLinks.forEach(link => {
-            const linkPath = link.getAttribute('href').split('/').pop();
-            if (currentPath === linkPath |
-| (currentPath === '' && linkPath === 'index.html')) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-    }
+    // Highlight active navigation link based on current page
+    // This needs to be done after the header is loaded
+    const currentPath = window.location.pathname.split('/').pop();
+    const navLinksObserver = new MutationObserver((mutationsList, observer) => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        if (navLinks.length > 0) {
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active'); // Ensure other links are not active
+                }
+            });
+            observer.disconnect(); // Disconnect once links are processed
+        }
+    });
+    navLinksObserver.observe(document.body, { childList: true, subtree: true });
+
 
     // Roadmap Data (only if on roadmap.html)
     if (document.getElementById('roadmapChart')) {
-        const roadmapPhases =,
+        const roadmapPhases = [
+            {
+                id: "phase1",
+                title: "Phase 1: Beta & Essential Foundation",
+                objective: "Establish the fundamental AI analysis system, implement initial avatar presence, and begin cultivating the core community.",
+                deliverables: [
+                    "Automated 1-hour Bitcoin Analysis (Freqtrade, AI).",
+                    "2D Ultra-realistic Female Avatar (AISHA-256v1) on Instagram.",
+                    "Automated Content Publishing System (hourly API).",
+                    "Initial Community Building and Feedback Channels.",
+                    "Comprehensive Disclaimer Implementation.",
+                    "Emphasis on DYOR and Risk.",
+                    "Beta Status Transparency."
+                ],
                 technologies: "Freqtrade, LLM for textual analysis, 2D Avatar Generation.",
                 platforms: "Instagram.",
                 engagement: "Initial feedback collection on analyses and project; Beta status transparency."
@@ -86,7 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: "phase2",
                 title: "Phase 2: Visual & Content Expansion",
                 objective: "Significantly enhance avatar realism and expand the range of content formats and analytical depth.",
-                deliverables:,
+                deliverables: [
+                    "3D Ultra-realistic Avatar (AISHA-256vX).",
+                    "Dynamic Video Content Production (anchor/influencer).",
+                    "Multi-timeframe Analysis Expansion (4h, daily).",
+                    "Content Diversification for Engagement."
+                ],
                 technologies: "3D Avatar Generation, AI Character Animation, AI Voice Synthesis, AI Lip-sync.",
                 platforms: "Instagram, YouTube (initial), TikTok (initial).",
                 engagement: "Feedback on avatar realism and video formats; Content routine building."
@@ -95,7 +115,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: "phase3",
                 title: "Phase 3: Interactive Immersion & Universe Expansion",
                 objective: "Significantly deepen user engagement through direct, personalized interaction and strategically expand the AI persona universe.",
-                deliverables:,
+                deliverables: [
+                    "AI Chat with Avatars (distinct personalities).",
+                    "New Specialized AI Avatars (programmer, chef, etc.).",
+                    "Automated Comment Interaction."
+                ],
                 technologies: "AI Chatbot, NLP for interaction, AI Character Creation.",
                 platforms: "Instagram, Twitter, YouTube, TikTok.",
                 engagement: "Direct interaction with avatars; Ideas for new avatars and niches; Co-creation of personalities."
@@ -104,10 +128,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: "phase4",
                 title: "Phase 4: Ecosystem & Monetization",
                 objective: "Introduce strategic monetization streams and exclusive digital assets, leveraging established community and brand loyalty.",
-                deliverables:,
+                deliverables: [
+                    "NFT Launch (collectibles, utility).",
+                    "Personalized Merchandise Line (physical/digital)."
+                ],
                 technologies: "Blockchain (NFTs), E-commerce Platforms, Product Design.",
                 platforms: "NFT Platforms, Online Store.",
-                engagement: "Community involvement in exclusive launches; Financial support via donations/purchases."
+                engagement: "Community involvement in exclusive launches; Financial support via donations/compras."
             },
             {
                 id: "phase5",
@@ -128,8 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let roadmapChartInstance = null; // To store the chart instance
 
         function displayPhaseDetails(phaseIndex) {
-            if (phaseIndex < 0 |
-| phaseIndex >= roadmapPhases.length) {
+            if (phaseIndex < 0 || phaseIndex >= roadmapPhases.length) {
                 phaseDetailsContainer.innerHTML = '<p class="text-center text-text-secondary">Select a phase from the chart or titles to see details.</p>';
                 return;
             }
@@ -144,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                     <p class="mb-2 text-sm"><strong class="font-semibold text-text-secondary">Technologies/Resources:</strong> ${phase.technologies}</p>
                     <p class="mb-2 text-sm"><strong class="font-semibold text-text-secondary">Target Platforms:</strong> ${phase.platforms}</p>
-                    <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engajamento}</p>
+                    <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engagement}</p>
                 </div>
             `;
             // Trigger animation
@@ -152,6 +178,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const card = phaseDetailsContainer.querySelector('.phase-details-card');
                 if (card) card.classList.add('visible');
             }, 50);
+
+            // Update active phase buttons (if any, not directly used in this roadmap chart design)
+            // document.querySelectorAll('.phase-button').forEach((btn, idx) => {
+            //     if (idx === phaseIndex) {
+            //         btn.classList.add('bg-purple-700', 'text-white');
+            //         btn.classList.remove('bg-purple-500', 'hover:bg-purple-600');
+            //     } else {
+            //         btn.classList.remove('bg-purple-700', 'text-white');
+            //         btn.classList.add('bg-purple-500', 'hover:bg-purple-600');
+            //     }
+            // });
         }
         
         // Initial display (e.g., first phase or placeholder)
@@ -162,8 +199,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const ctxRoadmap = document.getElementById('roadmapChart');
         if (ctxRoadmap) {
             const data = {
-                labels: roadmapPhases.map(p => p.title.split(':')), // "Phase 1", "Phase 2", etc.
-                datasets:,
+                labels: roadmapPhases.map(p => p.title.split(':')[0]), // "Phase 1", "Phase 2", etc.
+                datasets: [{
+                    label: 'Number of Key Deliverables',
+                    data: roadmapPhases.map(p => p.deliverables.length),
+                    backgroundColor: [
+                        'rgba(139, 92, 246, 0.7)', // purple-500
+                        'rgba(124, 58, 237, 0.7)', // purple-600
+                        'rgba(109, 40, 217, 0.7)', // purple-700
+                        'rgba(93, 23, 191, 0.7)',  // purple-800
+                        'rgba(76, 29, 149, 0.7)'   // purple-900
+                    ],
                     borderColor: [
                         'rgba(139, 92, 246, 1)',
                         'rgba(124, 58, 237, 1)',
@@ -215,12 +261,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    let label = context.dataset.label |
-| '';
+                                    let label = context.dataset.label || '';
                                     if (label) {
                                         label += ': ';
                                     }
-                                    if (context.parsed.x!== null) {
+                                    if (context.parsed.x !== null) {
                                         label += context.parsed.x;
                                     }
                                     return label;
@@ -230,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
-                            const phaseIndex = elements.index;
+                            const phaseIndex = elements[0].index;
                             displayPhaseDetails(phaseIndex);
                             // Optionally, scroll to the details container on mobile
                             if (window.innerWidth < 1024) { // lg breakpoint
