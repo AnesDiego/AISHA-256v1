@@ -1,25 +1,30 @@
-<nav>
-  <div class="nav-content">
-    <div class="menu">
-      <ul class="menu-list">
-        <li><a href="index.html">About</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="donate.html">Donate</a></li>
-        <li><a href="disclaimer.html">Disclaimer</a></li>
-        <li><a href="suggest.html">Suggest</a></li>
-      </ul>
-      <div class="hamburger" aria-label="Open menu" tabindex="0">
-        <span></span><span></span><span></span>
-      </div>
+<header class="bg-slate-800 text-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-purple-accent hover:text-purple-accent-hover transition-colors">AISHA-256</a>
+            </div>
+            <nav class="hidden md:flex space-x-4">
+                <a href="about.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-700 transition-colors">About</a>
+                <a href="how-it-works.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-700 transition-colors">How It Works</a>
+                <a href="roadmap.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-700 transition-colors">Roadmap</a>
+                <a href="community.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-700 transition-colors">Community & Support</a>
+                <a href="disclaimer.html" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:bg-slate-700 transition-colors">Disclaimer</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white hover:text-purple-accent focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="menu-mobile-overlay" style="display:none;">
-    <ul class="menu-list">
-      <li><a href="index.html">About</a></li>
-      <li><a href="roadmap.html">Roadmap</a></li>
-      <li><a href="donate.html">Donate</a></li>
-      <li><a href="disclaimer.html">Disclaimer</a></li>
-      <li><a href="suggest.html">Suggest</a></li>
-    </ul>
-  </div>
-</nav>
+    <div id="mobile-menu" class="md:hidden hidden bg-slate-800">
+        <a href="about.html" class="block nav-link px-4 py-3 text-sm hover:bg-slate-700 transition-colors">About</a>
+        <a href="how-it-works.html" class="block nav-link px-4 py-3 text-sm hover:bg-slate-700 transition-colors">How It Works</a>
+        <a href="roadmap.html" class="block nav-link px-4 py-3 text-sm hover:bg-slate-700 transition-colors">Roadmap</a>
+        <a href="community.html" class="block nav-link px-4 py-3 text-sm hover:bg-slate-700 transition-colors">Community & Support</a>
+        <a href="disclaimer.html" class="block nav-link px-4 py-3 text-sm hover:bg-slate-700 transition-colors">Disclaimer</a>
+    </div>
+</header>

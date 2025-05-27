@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Disclaimer • AISHA-256</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer & Risk Disclosure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <div id="header"></div>
-  <main>
-    <section class="disclaimer">
-      <h1>Disclaimer</h1>
-      <p>
-        All analyses, insights, and content provided by AISHA-256 are <strong>for informational and educational purposes only</strong>. This content <strong>does not constitute, and is not intended to constitute, financial, investment, or trading advice</strong>. The project and its developers <strong>assume no responsibility or liability</strong> for any financial decisions, gains, or losses incurred by users based on the information provided. The cryptocurrency market is inherently volatile and unpredictable. We strongly recommend that you <strong>"Do Your Own Research" (DYOR)</strong> and be aware of the high risk of losing your entire capital. The project is in its beta/pilot phase, and analyses are part of ongoing testing.
-      </p>
-    </section>
-  </main>
-  <div id="footer"></div>
-  <script src="assets/scripts.js"></script>
-  <script>
-    includeHTML('#header', 'header.html');
-    includeHTML('#footer', 'footer.html');
-  </script>
+<body class="bg-primary text-primary leading-relaxed">
+
+    <div id="header-placeholder"></div>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="disclaimer" class="py-12 scroll-mt-16">
+            <h2 class="text-3xl font-bold text-center mb-2 text-red-accent">Disclaimer & Risk Disclosure</h2>
+            <p class="text-center text-text-secondary mb-10 max-w-2xl mx-auto">This section is of utmost importance to ensure transparency, manage expectations, and fulfill essential legal and ethical obligations. Please read carefully.</p>
+            
+            <div class="space-y-8">
+                <div class="card disclaimer-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-red-accent">Informational Content Only: Not Financial Advice</h3>
+                    <p class="mb-2">All analyses, insights, and content provided by AISHA-256 are <strong class="text-red-accent">purely for informational and educational purposes only</strong>. The content <strong class="text-red-accent">DOES NOT constitute, and is not intended to constitute, financial, investment, trading, or any other form of professional advice</strong>. The project, its developers, and any associated entities <strong class="text-red-accent">assume no responsibility or liability</strong> for any financial decisions, gains, or losses incurred by users based on the information provided by AISHA-256. It is reinforced that AISHA-256 <strong class="text-red-accent">offers no guarantees, warranties, or assurances</strong> regarding the accuracy or predictive success of market analyses, as the cryptocurrency market is inherently volatile, unpredictable, and subject to rapid and unforeseen changes.</p>
+                </div>
+
+                <div class="card disclaimer-card">
+                    <h3 class="text-2xl font-semibold mb-3 text-red-accent">User Responsibility & Market Volatility</h3>
+                    <p class="mb-2">Users are strongly advised to <strong class="text-red-accent">"Do Your Own Research" (DYOR)</strong> before making any investment decisions. The <strong class="text-red-accent">high-risk nature of cryptocurrency investments</strong> is highlighted, emphasizing that users may lose their entire capital.</p>
+                    <p class="mb-2">The project is in its <strong class="text-red-accent">beta/pilot phase</strong>, and analyses are part of ongoing testing and refinement. Users are encouraged to seek independent financial advice from qualified professionals.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/scripts.js"></script>
 </body>
 </html>

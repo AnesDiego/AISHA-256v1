@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Roadmap • AISHA-256</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AISHA-256 Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <div id="header"></div>
-  <main>
-    <section class="roadmap">
-      <h1>Project Roadmap</h1>
-      <p>Our project evolves in strategic phases:</p>
-      <ol>
-        <li><b>Phase 1 (Current - Beta):</b> Automated 1-hour Bitcoin analysis, with the 2D avatar (AISHA-256v1) publishing hourly analyses via API. Focus on community building and feedback collection.</li>
-        <li><b>Phase 2 (Visual & Content Expansion):</b> Transition to an ultra-realistic 3D avatar (AISHA-256vX) and dynamic video content production, where AISHA acts as an anchor/influencer. Expansion to multi-timeframe analyses (4h, daily).</li>
-        <li><b>Phase 3 (Interactive Immersion & Universe Expansion):</b> Implementation of AI chat for direct interaction with avatars (with distinct personalities) and introduction of new specialized AI avatars in various fields (e.g., programmer, chef).</li>
-        <li><b>Phase 4 (Ecosystem & Monetization):</b> Launch of NFTs (collectibles and utility-based) and a line of personalized merchandise inspired by the avatars.</li>
-        <li><b>Phase 5 (Diversification & Multi-platform Growth):</b> Full expansion to major platforms like Twitter, YouTube, and TikTok, continuous exploration of new AI influencer niches, and the creation of a cryptocurrency for the AISHA universe to expand the ecosystem.</li>
-      </ol>
-      <h2>Community Ideas</h2>
-      <p>The AISHA-256 project is community-driven. We value your feedback and support for AISHA-256's continuous learning and evolution. Your insights on analysis accuracy, avatar interaction, and suggestions for new features are crucial for us to fix bugs and enhance the project. We want to build the future of crypto trading together!</p>
-      <div class="suggest-link">
-        <a href="suggest.html">Suggest Something</a>
-      </div>
-    </section>
-  </main>
-  <div id="footer"></div>
-  <script src="assets/scripts.js"></script>
-  <script>
-    includeHTML('#header', 'header.html');
-    includeHTML('#footer', 'footer.html');
-  </script>
+<body class="bg-primary text-primary leading-relaxed">
+
+    <div id="header-placeholder"></div>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <section id="roadmap" class="py-12 scroll-mt-16">
+            <h2 class="text-3xl font-bold text-center mb-2 text-purple-accent">Strategic Roadmap</h2>
+            <p class="text-center text-text-secondary mb-10 max-w-2xl mx-auto">Explore AISHA-256's phased development plan, from its current beta state to a multifaceted ecosystem. Click on the chart bars to view phase details.</p>
+
+            <div class="lg:flex lg:space-x-8">
+                <div class="lg:w-1/3 mb-8 lg:mb-0">
+                    <div class="chart-container p-4">
+                        <canvas id="roadmapChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:w-2/3">
+                    <div id="phaseDetailsContainer" class="space-y-4">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/scripts.js"></script>
 </body>
 </html>
