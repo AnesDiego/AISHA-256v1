@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
-    // Mobile menu toggle logic (needs to be run after header is loaded)
-    // Using a MutationObserver to ensure the button exists before attaching event listener
+    // Mobile menu toggle logic
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
-        const observer = new MutationObserver((mutationsList, observer) => {
+        // Use MutationObserver to ensure the header content is loaded before attaching listeners
+        const observer = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -42,40 +42,37 @@ document.addEventListener('DOMContentLoaded', function() {
                         mobileMenuButton.addEventListener('click', () => {
                             mobileMenu.classList.toggle('hidden');
                         });
-                        // Attach click listeners to mobile menu links to close menu
+                        // Close mobile menu when a link inside it is clicked
                         mobileMenu.querySelectorAll('a').forEach(link => {
                             link.addEventListener('click', () => {
                                 mobileMenu.classList.add('hidden');
                             });
                         });
-                        observer.disconnect(); // Disconnect once the button is found and listener attached
-                        break;
+                        observer.disconnect(); // Disconnect once listeners are attached
+                        // Now that header is loaded, apply active link highlighting
+                        highlightActiveNavLink();
+                        break; // Stop observing after successful setup
                     }
                 }
             }
         });
+        // Start observing the header placeholder for changes in its children
         observer.observe(headerPlaceholder, { childList: true, subtree: true });
     }
 
-    // Highlight active navigation link based on current page
-    // This needs to be done after the header is loaded
-    const currentPath = window.location.pathname.split('/').pop();
-    const navLinksObserver = new MutationObserver((mutationsList, observer) => {
-        const navLinks = document.querySelectorAll('.nav-link');
-        if (navLinks.length > 0) {
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href').split('/').pop();
-                if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active'); // Ensure other links are not active
-                }
-            });
-            observer.disconnect(); // Disconnect once links are processed
-        }
-    });
-    navLinksObserver.observe(document.body, { childList: true, subtree: true });
-
+    // Function for active nav link highlighting
+    function highlightActiveNavLink() {
+        const currentPath = window.location.pathname.split('/').pop();
+        const navLinks = document.querySelectorAll('.nav-link'); // Select all nav links
+        navLinks.forEach(link => {
+            const linkPath = link.getAttribute('href').split('/').pop();
+            if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
 
     // Roadmap Data (only if on roadmap.html)
     if (document.getElementById('roadmapChart')) {
@@ -134,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 ],
                 technologies: "Blockchain (NFTs), E-commerce Platforms, Product Design.",
                 platforms: "NFT Platforms, Online Store.",
-                engagement: "Community involvement in exclusive launches; Financial support via donations/compras."
+                engagement: "Community involvement in exclusive launches; Financial support via donations/purchases."
             },
             {
                 id: "phase5",
@@ -178,17 +175,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const card = phaseDetailsContainer.querySelector('.phase-details-card');
                 if (card) card.classList.add('visible');
             }, 50);
-
-            // Update active phase buttons (if any, not directly used in this roadmap chart design)
-            // document.querySelectorAll('.phase-button').forEach((btn, idx) => {
-            //     if (idx === phaseIndex) {
-            //         btn.classList.add('bg-purple-700', 'text-white');
-            //         btn.classList.remove('bg-purple-500', 'hover:bg-purple-600');
-            //     } else {
-            //         btn.classList.remove('bg-purple-700', 'text-white');
-            //         btn.classList.add('bg-purple-500', 'hover:bg-purple-600');
-            //     }
-            // });
         }
         
         // Initial display (e.g., first phase or placeholder)

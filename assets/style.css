@@ -217,13 +217,14 @@ header {
     color: var(--color-accent-red);
 }
 
-/* Hexagonal Image Styling */
-.hexagon-container {
+/* Octagonal Image Styling */
+.octagonal-container {
     width: 200px; /* Adjust size as needed */
-    height: 230px; /* Approx width * sqrt(3)/2 * 1.15 for slight vertical stretch */
+    height: 200px; /* For a perfect octagon from a square */
     margin: 0 auto 2rem auto; /* Center and add bottom margin */
     position: relative;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    /* This clip-path creates an octagon with flat sides at top/bottom/left/right */
+    clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
     background-color: var(--color-bg-card); /* Background for padding/border effect */
     display: flex;
     justify-content: center;
@@ -232,12 +233,13 @@ header {
     border: 2px solid var(--color-accent-purple); /* Purple border */
 }
 
-.hexagon-container img {
+.octagonal-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the hexagon area */
+    object-fit: cover; /* Cover the octagonal area */
     display: block;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* Apply clip-path to image too for safety */
+    /* Apply clip-path to image too for safety, though container should handle it */
+    clip-path: polygon(29.3% 0%, 70.7% 0%, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0% 70.7%, 0% 29.3%);
 }
 
 /* Suggest Page Specific Styling */
