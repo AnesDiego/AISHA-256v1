@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,23 +18,33 @@
         <li>Suggestions for new features, content formats, or analytical tools.</li>
       </ul>
       <p>Your contribution helps us fix bugs and constantly improve the project.</p>
+
+      <div style="
+        color: #FF0000; /* Red text */
+        font-weight: bold; /* Bold text */
+        background-color: #FFCCCC; /* Light red background */
+        padding: 15px; /* Padding around the text */
+        margin: 20px auto; /* Center the message horizontally */
+        text-align: center; /* Center the text content */
+        border: 1px solid #FF0000; /* Red border */
+        border-radius: 5px; /* Slightly rounded corners */
+        max-width: 600px; /* Max width for readability */
+        display: block; /* Ensure it takes its own line */
+      ">
+        <strong>Forms are temporarily disabled. For suggestions and feedback, please send them directly to the official email: <a href="mailto:talk2me@aisha-256.space" style="color: #FF0000; font-weight: bold; text-decoration: underline;">talk2me@aisha-256.space</a></strong>
+      </div>
       <form id="suggestForm">
         <label for="name">Name (optional):</label>
-        <input type="text" id="name" name="name" placeholder="Your name">
-
-        <label for="title">Title of Suggestion:</label>
-        <input type="text" id="title" name="title" required placeholder="A brief title for your suggestion">
-
-        <label for="suggestion">Your Suggestion:</label>
-        <textarea id="suggestion" name="suggestion" required placeholder="Type your suggestion here..."></textarea>
-        <button type="submit">Send Suggestion</button>
-      </form>
+        <input type="text" id="name" name="name" placeholder="Your name" disabled> <label for="title">Title of Suggestion:</label>
+        <input type="text" id="title" name="title" required placeholder="A brief title for your suggestion" disabled> <label for="suggestion">Your Suggestion:</label>
+        <textarea id="suggestion" name="suggestion" required placeholder="Type your suggestion here..." disabled></textarea> <button type="submit" disabled>Send Suggestion</button> </form>
       <div id="suggestMsg"></div>
     </section>
   </main>
   <div id="footer"></div>
   <script src="assets/scripts.js"></script>
   <script>
+    // Your existing includeHTML calls (these still require scripts.js)
     includeHTML('#header', 'header.html');
     includeHTML('#footer', 'footer.html');
   </script>
