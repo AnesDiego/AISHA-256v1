@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AISHA-256 Roteiro</title>
+    <title>AISHA-256 Roadmap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,12 +16,15 @@
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <section id="roadmap" class="py-12 scroll-mt-16">
-            <h2 class="text-3xl font-bold text-center mb-2 text-purple-accent">Roteiro Estratégico</h2>
-            <p class="text-center text-text-secondary mb-10 max-w-2xl mx-auto">Explore o plano de desenvolvimento faseado da AISHA-256, desde o seu estado beta atual até um ecossistema multifacetado.</p>
+            <h2 class="text-3xl font-bold text-center mb-2 text-purple-accent">Strategic Roadmap</h2>
+            <p class="text-center text-text-secondary mb-10 max-w-2xl mx-auto">
+                Explore the phased development plan of AISHA-256, from its current beta stage to a multifaceted ecosystem.<br>
+                Click on the bars in the chart to see details for each phase.
+            </p>
             <div class="lg:flex lg:space-x-8">
                 <div class="lg:w-1/3 mb-8 lg:mb-0">
-                    <div class="chart-container p-4 bg-bg-card rounded-lg shadow-lg min-h-[300px]">
-                        <canvas id="roadmapChart" style="height:320px"></canvas>
+                    <div class="chart-container p-4 bg-bg-card rounded-lg shadow-lg">
+                        <canvas id="roadmapChart"></canvas>
                     </div>
                 </div>
                 <div class="lg:w-2/3">
@@ -28,10 +32,205 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <div id="footer-placeholder"></div>
 
+    <script>
+        // Roadmap data
+        const roadmapPhases = [
+            {
+                id: "phase1",
+                title: "Phase 1: Beta & Essential Foundation",
+                objective: "Establish the fundamental AI analysis system, implement the initial avatar presence, and start building the core community.",
+                deliverables: [
+                    "Automated 1-hour Bitcoin Analysis (Freqtrade, AI).",
+                    "2D Ultra-realistic Female Avatar (AISHA-256v1) on Instagram.",
+                    "Automated Content Publishing System (hourly API).",
+                    "Initial Community Building and Feedback Channels.",
+                    "Comprehensive Disclaimer Implementation.",
+                    "Emphasis on DYOR and Risk.",
+                    "Beta Status Transparency."
+                ],
+                technologies: "Freqtrade, LLM for textual analysis, 2D avatar generation.",
+                platforms: "Instagram.",
+                engagement: "Collect initial feedback on analyses and project; Beta status transparency."
+            },
+            {
+                id: "phase2",
+                title: "Phase 2: Visual and Content Expansion",
+                objective: "Significantly improve avatar realism and expand the range of content formats and analytical depth.",
+                deliverables: [
+                    "3D Ultra-realistic Avatar (AISHA-256vX).",
+                    "Dynamic Video Content Production (anchor/influencer).",
+                    "Expansion of Multi-Timeframe Analysis (4h, daily).",
+                    "Content Diversification for Engagement."
+                ],
+                technologies: "3D avatar generation, AI character animation, AI voice synthesis, AI lip sync.",
+                platforms: "Instagram, YouTube (beginning), TikTok (beginning).",
+                engagement: "Feedback on avatar realism and video formats; Build content routine."
+            },
+            {
+                id: "phase3",
+                title: "Phase 3: Interactive Immersion & Universe Expansion",
+                objective: "Deepen user engagement through direct and personalized interaction and strategically expand the AI persona universe.",
+                deliverables: [
+                    "AI Chat with Avatars (distinct personalities).",
+                    "New Specialized AI Avatars (programmer, chef, etc.).",
+                    "Automated Comment Interaction."
+                ],
+                technologies: "AI chatbot, NLP for interaction, AI character creation.",
+                platforms: "Instagram, Twitter, YouTube, TikTok.",
+                engagement: "Direct interaction with avatars; Ideas for new avatars and niches; Co-creation of personalities."
+            },
+            {
+                id: "phase4",
+                title: "Phase 4: Ecosystem & Monetization",
+                objective: "Introduce strategic monetization streams and exclusive digital assets, leveraging the established community and brand loyalty.",
+                deliverables: [
+                    "NFT Launch (collectibles, utility).",
+                    "Personalized Merchandise Line (physical/digital)."
+                ],
+                technologies: "Blockchain (NFTs), e-commerce platforms, product design.",
+                platforms: "NFT platforms, online store.",
+                engagement: "Community involvement in exclusive launches; Financial support through donations/purchases."
+            },
+            {
+                id: "phase5",
+                title: "Phase 5: Diversification & Multi-Platform Growth",
+                objective: "Achieve broad reach across major digital platforms and continuously explore new applications and niches for AI personas, solidifying market leadership.",
+                deliverables: [
+                    "Full expansion to multiple platforms.",
+                    "Advanced Video Content Portfolio.",
+                    "Continuous Exploration of AI Influencer Niches."
+                ],
+                technologies: "Content distribution optimization, AI series generation, AI character animation.",
+                platforms: "All major platforms (Twitter, YouTube, TikTok, etc.).",
+                engagement: "Participation in content and reach expansion; Reinforce brand loyalty."
+            }
+        ];
+
+        const phaseDetailsContainer = document.getElementById('phaseDetailsContainer');
+        let roadmapChartInstance = null;
+
+        function displayPhaseDetails(phaseIndex) {
+            if (phaseIndex < 0 || phaseIndex >= roadmapPhases.length) {
+                phaseDetailsContainer.innerHTML = '<p class="text-center text-text-secondary">Select a phase from the chart to see details.</p>';
+                return;
+            }
+
+            const phase = roadmapPhases[phaseIndex];
+            phaseDetailsContainer.innerHTML = `
+                <div class="phase-details-card bg-bg-card p-6 rounded-lg shadow-lg border-l-4 border-purple-accent transform transition-transform duration-300 ease-out scale-95 opacity-0 visible">
+                    <h3 class="text-2xl font-bold mb-3 text-purple-accent">${phase.title}</h3>
+                    <p class="mb-2"><strong class="font-semibold text-text-primary">Main Objective:</strong> ${phase.objective}</p>
+                    <p class="mb-1 font-semibold text-text-primary">Key Deliverables:</p>
+                    <ul class="list-disc list-inside space-y-1 mb-3 text-text-secondary pl-4">
+                        ${phase.deliverables.map(deliverable => `<li>${deliverable}</li>`).join('')}
+                    </ul>
+                    <p class="mb-2 text-sm"><strong class="font-semibold text-text-secondary">Technologies/Resources:</strong> ${phase.technologies}</p>
+                    <p class="mb-2 text-sm"><strong class="font-semibold text-text-secondary">Target Platforms:</strong> ${phase.platforms}</p>
+                    <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engagement}</p>
+                </div>
+            `;
+            setTimeout(() => {
+                const card = phaseDetailsContainer.querySelector('.phase-details-card');
+                if (card) {
+                    card.classList.remove('scale-95', 'opacity-0');
+                    card.classList.add('scale-100', 'opacity-100');
+                }
+            }, 50);
+        }
+
+        // Show details for the first phase on load
+        displayPhaseDetails(0);
+
+        // Chart.js in purple shades
+        const ctxRoadmap = document.getElementById('roadmapChart');
+        if (ctxRoadmap) {
+            const data = {
+                labels: roadmapPhases.map(p => p.title.split(':')[0]),
+                datasets: [{
+                    label: 'Number of Key Deliverables',
+                    data: roadmapPhases.map(p => p.deliverables.length),
+                    backgroundColor: [
+                        'rgba(168, 85, 247, 0.7)', // purple-500
+                        'rgba(139, 92, 246, 0.7)', // purple-600
+                        'rgba(124, 58, 237, 0.7)', // purple-700
+                        'rgba(109, 40, 217, 0.7)', // purple-800
+                        'rgba(91, 33, 182, 0.7)'   // purple-900
+                    ],
+                    borderColor: [
+                        'rgba(168, 85, 247, 1)',
+                        'rgba(139, 92, 246, 1)',
+                        'rgba(124, 58, 237, 1)',
+                        'rgba(109, 40, 217, 1)',
+                        'rgba(91, 33, 182, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverBackgroundColor: [
+                        'rgba(168, 85, 247, 0.9)',
+                        'rgba(139, 92, 246, 0.9)',
+                        'rgba(124, 58, 237, 0.9)',
+                        'rgba(109, 40, 217, 0.9)',
+                        'rgba(91, 33, 182, 0.9)'
+                    ]
+                }]
+            };
+
+            roadmapChartInstance = new Chart(ctxRoadmap, {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Key Deliverables',
+                                color: '#a855f7'
+                            },
+                            ticks: { color: '#a855f7' },
+                            grid: { color: '#373e47' }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#a855f7',
+                                font: { size: 10 }
+                            },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.x !== null) { label += context.parsed.x; }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const phaseIndex = elements[0].index;
+                            displayPhaseDetails(phaseIndex);
+                            if (window.innerWidth < 1024) {
+                                phaseDetailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
     <script src="assets/scripts.js"></script>
 </body>
 </html>
