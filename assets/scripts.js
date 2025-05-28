@@ -178,22 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const card = phaseDetailsContainer.querySelector('.phase-details-card');
                 if (card) card.classList.add('visible');
             }, 50);
-
-            // Update active phase buttons (if any, not directly used in this roadmap chart design)
-            // document.querySelectorAll('.phase-button').forEach((btn, idx) => {
-            //     if (idx === phaseIndex) {
-            //         btn.classList.add('bg-purple-700', 'text-white');
-            //         btn.classList.remove('bg-purple-500', 'hover:bg-purple-600');
-            //     } else {
-            //         btn.classList.remove('bg-purple-700', 'text-white');
-            //         btn.classList.add('bg-purple-500', 'hover:bg-purple-600');
-            //     }
-            // });
         }
         
         // Initial display (e.g., first phase or placeholder)
         displayPhaseDetails(0);
-
 
         // Chart.js Roadmap Chart
         const ctxRoadmap = document.getElementById('roadmapChart');
@@ -229,10 +217,10 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             roadmapChartInstance = new Chart(ctxRoadmap, {
-                type: 'bar', // Changed to bar for better label readability with more text
+                type: 'bar',
                 data: data,
                 options: {
-                    indexAxis: 'y', // Makes it a horizontal bar chart
+                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
@@ -249,14 +237,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         y: {
                            ticks: { 
                                 color: 'var(--color-text-secondary)',
-                                font: { size: 10 } // Smaller font for phase labels if needed
+                                font: { size: 10 }
                             },
                            grid: { display: false }
                         }
                     },
                     plugins: {
                         legend: {
-                            display: false // Hiding legend as it's self-explanatory
+                            display: false
                         },
                         tooltip: {
                             callbacks: {
@@ -277,8 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (elements.length > 0) {
                             const phaseIndex = elements[0].index;
                             displayPhaseDetails(phaseIndex);
-                            // Optionally, scroll to the details container on mobile
-                            if (window.innerWidth < 1024) { // lg breakpoint
+                            if (window.innerWidth < 1024) {
                                 phaseDetailsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }
                         }
@@ -289,13 +276,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Function to copy BTC Address (only if on community.html)
         if (document.getElementById('btcAddress')) {
-            window.copyBtcAddress = function(address) { // Make it global for onclick
+            window.copyBtcAddress = function(address) {
                 const feedbackDiv = document.getElementById('copyFeedback');
                 if (!navigator.clipboard) {
-                    // Fallback for older browsers
                     const textArea = document.createElement("textarea");
                     textArea.value = address;
-                    textArea.style.position = "fixed"; //avoid scrolling to bottom
+                    textArea.style.position = "fixed";
                     document.body.appendChild(textArea);
                     textArea.focus();
                     textArea.select();
