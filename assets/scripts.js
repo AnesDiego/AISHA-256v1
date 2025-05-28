@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to include external HTML files
-    function includeHTML(selector, filePath) {
+    // Função para incluir HTML externo
+    function includeHTML(selector, filePath, callback) {
         fetch(filePath)
             .then(response => {
                 if (!response.ok) {
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const element = document.querySelector(selector);
                 if (element) {
                     element.innerHTML = data;
+                    if (typeof callback === "function") callback();
                 } else {
                     console.warn(`Element with selector "${selector}" not found.`);
                 }
@@ -19,65 +20,56 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error loading HTML:', filePath, error));
     }
 
-    // Include header and footer
-    includeHTML('#header-placeholder', 'header.html');
-    includeHTML('#footer-placeholder', 'footer.html');
+    // Carrega header e footer e executa os setups após carregados
+    includeHTML('#header-placeholder', 'header.html', setupHeaderLogic);
+    includeHTML('#footer-placeholder', 'footer.html', setupFooterYear);
 
-    // Set current year in footer
-    const currentYearSpan = document.getElementById('currentYear');
-    if (currentYearSpan) {
-        currentYearSpan.textContent = new Date().getFullYear();
+    // Função para garantir que o ano do footer é atualizado após carregar o footer
+    function setupFooterYear() {
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
     }
 
-    // Mobile menu toggle logic (needs to be run after header is loaded)
-    // Using a MutationObserver to ensure the button exists before attaching event listener
-    const headerPlaceholder = document.getElementById('header-placeholder');
-    if (headerPlaceholder) {
-        const observer = new MutationObserver((mutationsList, observer) => {
-            for (const mutation of mutationsList) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    const mobileMenuButton = document.getElementById('mobile-menu-button');
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (mobileMenuButton && mobileMenu) {
-                        mobileMenuButton.addEventListener('click', () => {
-                            mobileMenu.classList.toggle('hidden');
-                        });
-                        // Attach click listeners to mobile menu links to close menu
-                        mobileMenu.querySelectorAll('a').forEach(link => {
-                            link.addEventListener('click', () => {
-                                mobileMenu.classList.add('hidden');
-                            });
-                        });
-                        observer.disconnect(); // Disconnect once the button is found and listener attached
-                        break;
-                    }
-                }
+    // Função para configurar toda a lógica do menu após carregar o header
+    function setupHeaderLogic() {
+        // Garantir que Tailwind está funcionando corretamente para classes como md:flex/hidden
+        // Menu desktop e hamburguer mobile
+        const menuDesktop = document.querySelector('nav.md\\:flex');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Mostra o menu desktop se estiver em tela desktop (Tailwind faz isso via classes, mas ajuda garantir)
+        if (menuDesktop && window.innerWidth >= 768) {
+            menuDesktop.classList.remove('hidden');
+        }
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Fecha menu mobile ao clicar em qualquer link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Destaque do link ativo
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPath = link.getAttribute('href').split('/').pop();
+            if (currentPath === linkPath) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
         });
-        observer.observe(headerPlaceholder, { childList: true, subtree: true });
     }
 
-    // Highlight active navigation link based on current page
-    // This needs to be done after the header is loaded
-    const currentPath = window.location.pathname.split('/').pop();
-    const navLinksObserver = new MutationObserver((mutationsList, observer) => {
-        const navLinks = document.querySelectorAll('.nav-link');
-        if (navLinks.length > 0) {
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href').split('/').pop();
-                if (currentPath === linkPath || (currentPath === '' && linkPath === 'index.html')) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active'); // Ensure other links are not active
-                }
-            });
-            observer.disconnect(); // Disconnect once links are processed
-        }
-    });
-    navLinksObserver.observe(document.body, { childList: true, subtree: true });
-
-
-    // Roadmap Data (only if on roadmap.html)
+    // --- Roadmap Chart (roadmap.html) ---
     if (document.getElementById('roadmapChart')) {
         const roadmapPhases = [
             {
@@ -152,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         const phaseDetailsContainer = document.getElementById('phaseDetailsContainer');
-        let roadmapChartInstance = null; // To store the chart instance
+        let roadmapChartInstance = null;
 
         function displayPhaseDetails(phaseIndex) {
             if (phaseIndex < 0 || phaseIndex >= roadmapPhases.length) {
@@ -173,30 +165,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="text-sm"><strong class="font-semibold text-text-secondary">Engagement Focus:</strong> ${phase.engagement}</p>
                 </div>
             `;
-            // Trigger animation
             setTimeout(() => {
                 const card = phaseDetailsContainer.querySelector('.phase-details-card');
                 if (card) card.classList.add('visible');
             }, 50);
         }
-        
-        // Initial display (e.g., first phase or placeholder)
+
         displayPhaseDetails(0);
 
-        // Chart.js Roadmap Chart
         const ctxRoadmap = document.getElementById('roadmapChart');
         if (ctxRoadmap) {
             const data = {
-                labels: roadmapPhases.map(p => p.title.split(':')[0]), // "Phase 1", "Phase 2", etc.
+                labels: roadmapPhases.map(p => p.title.split(':')[0]),
                 datasets: [{
                     label: 'Number of Key Deliverables',
                     data: roadmapPhases.map(p => p.deliverables.length),
                     backgroundColor: [
-                        'rgba(139, 92, 246, 0.7)', // purple-500
-                        'rgba(124, 58, 237, 0.7)', // purple-600
-                        'rgba(109, 40, 217, 0.7)', // purple-700
-                        'rgba(93, 23, 191, 0.7)',  // purple-800
-                        'rgba(76, 29, 149, 0.7)'   // purple-900
+                        'rgba(139, 92, 246, 0.7)',
+                        'rgba(124, 58, 237, 0.7)',
+                        'rgba(109, 40, 217, 0.7)',
+                        'rgba(93, 23, 191, 0.7)',
+                        'rgba(76, 29, 149, 0.7)'
                     ],
                     borderColor: [
                         'rgba(139, 92, 246, 1)',
@@ -235,27 +224,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             grid: { color: 'var(--color-border-secondary)' }
                         },
                         y: {
-                           ticks: { 
+                            ticks: {
                                 color: 'var(--color-text-secondary)',
                                 font: { size: 10 }
                             },
-                           grid: { display: false }
+                            grid: { display: false }
                         }
                     },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.x !== null) {
-                                        label += context.parsed.x;
-                                    }
+                                    if (label) label += ': ';
+                                    if (context.parsed.x !== null) label += context.parsed.x;
                                     return label;
                                 }
                             }
@@ -274,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Function to copy BTC Address (only if on community.html)
+        // Copiar endereço BTC (community.html)
         if (document.getElementById('btcAddress')) {
             window.copyBtcAddress = function(address) {
                 const feedbackDiv = document.getElementById('copyFeedback');
@@ -292,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         feedbackDiv.textContent = 'Failed to copy.';
                         console.error('Fallback: Oops, unable to copy', err);
                     }
+                    document.body.removeChild(textArea);
                 } else {
                     navigator.clipboard.writeText(address).then(function() {
                         feedbackDiv.textContent = 'Address copied!';
@@ -300,7 +284,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.error('Async: Could not copy text: ', err);
                     });
                 }
-                setTimeout(() => { feedbackDiv.textContent = ''; }, 3000);
+                setTimeout(() => { if (feedbackDiv) feedbackDiv.textContent = ''; }, 3000);
             };
         }
-    });
+    }
+});
