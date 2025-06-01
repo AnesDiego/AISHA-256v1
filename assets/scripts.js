@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Função para incluir HTML externo
+    // F
     function includeHTML(selector, filePath, callback) {
         fetch(filePath)
             .then(response => {
@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error loading HTML:', filePath, error));
     }
 
-    // Carrega header e footer e executa os setups após carregados
+    //s
     includeHTML('#header-placeholder', 'header.html', setupHeaderLogic);
     includeHTML('#footer-placeholder', 'footer.html', setupFooterYear);
 
-    // Função para garantir que o ano do footer é atualizado após carregar o footer
+    // F
     function setupFooterYear() {
         const currentYearSpan = document.getElementById('currentYear');
         if (currentYearSpan) {
@@ -32,15 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Função para configurar toda a lógica do menu após carregar o header
+    // F
     function setupHeaderLogic() {
-        // Garantir que Tailwind está funcionando corretamente para classes como md:flex/hidden
-        // Menu desktop e hamburguer mobile
+        // G
+        // M
         const menuDesktop = document.querySelector('nav.md\\:flex');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
-        // Mostra o menu desktop se estiver em tela desktop (Tailwind faz isso via classes, mas ajuda garantir)
+        // M
         if (menuDesktop && window.innerWidth >= 768) {
             menuDesktop.classList.remove('hidden');
         }
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
-            // Fecha menu mobile ao clicar em qualquer link
+            // F
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Destaque do link ativo
+        // D
         const currentPath = window.location.pathname.split('/').pop() || 'index.html';
         document.querySelectorAll('.nav-link').forEach(link => {
             const linkPath = link.getAttribute('href').split('/').pop();
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Copiar endereço BTC (community.html)
+        // C (community.html)
         if (document.getElementById('btcAddress')) {
             window.copyBtcAddress = function(address) {
                 const feedbackDiv = document.getElementById('copyFeedback');
